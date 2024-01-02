@@ -8,7 +8,10 @@ const NavBar = ({ isLoggedIn, username, onLogout }) => (
   <div className="h-[80px] flex w-full shadow-md top-0 z-2 overflow-hidden justify-between">
     <img className="h-10 w-10 mx-5 my-5" src={logo} alt="logo" />
     <div className="hidden md:flex justify-between">
-      <ul className="flex flex-row ml-[160px]">
+      <ul className="flex flex-row ml-[160px] text-[20px]">
+       <a href="/"><li className="mx-6 mt-6 hover:font-semibold">Home</li></a> 
+       <a href="/course"><li className="mx-6 mt-6 hover:font-semibold">Courses</li></a> 
+       <a href=""><li className="mx-6 mt-6 hover:font-semibold">Contact</li></a> 
       </ul>
     </div>
     <div className="flex">

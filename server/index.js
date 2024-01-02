@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 
 const app = express();
-const PORT = process.env.PORT || 5173;
+const PORT = process.env.PORT || 8000;
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -28,10 +28,10 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const { phone, password } = req.body;
+  const { phone_number, password } = req.body;
 
-  const query = "SELECT * FROM users WHERE phone = ? AND password = ?";
-  pool.query(query, [phone, password], (err, result) => {
+  const query = "SELECT * FROM users WHERE phone_number = ? AND password = ?";
+  pool.query(query, [phone_number, password], (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
       res.status(500).json({ error: "Internal Server Error" });
@@ -44,6 +44,32 @@ app.post("/login", (req, res) => {
     } else {
       res.json({ success: false, message: "Invalid phone number or password" });
     }
+  });
+});
+
+app.get("/course", (req, res) => {
+  const query = "SELECT * FROM paid_couses";
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    res.json(result);
+  });
+});
+
+app.get("/banners", (req, res) => {
+  const query = "SELECT * FROM banners"; // Assuming your table is named 'banners'
+  
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+
+    res.json(result);
   });
 });
 

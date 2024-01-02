@@ -1,12 +1,12 @@
-
+// Login.js
 import { useState } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
-import Lottie from "lottie-react";
+// import NavBar from "../components/NavBar";
 import lot from "../assets/login/Animation - 1703879061416.json";
+import Lottie from "lottie-react";
 
-import "./Login.css";
-
-export default function Login() {
+const Login = ({ onLogin }) => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -15,13 +15,14 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5173/login", {
+      const response = await axios.post("http://localhost:8000/login", {
         phone,
         password,
       });
 
       if (response.data.success) {
-        setMessage(`Login successful. Welcome, ${response.data.username}!`);
+        setMessage("Login successful");
+        onLogin(response.data.username);
       } else {
         setMessage("Invalid phone number or password");
       }
@@ -33,12 +34,14 @@ export default function Login() {
 
   return (
     <>
+      {/* <NavBar /> */}
       <div className="absolute md:left-[30%] login flex flex-col justify-center items-center h-[100vh] md:flex-col mt-[-80px] md:mt-[0px]">
         <div className="w-[100%] text-center mb-6">
-          <h3 className="text-indigo-800 font-extrabold text-3xl">Login</h3>
+          <h3 className="text-indigo-800 font-bold text-3xl">Login</h3>
         </div>
         <div>
           <div className="lot w-full mb-5 flex justify-center items-center">
+            {/* Your Lottie animation component */}
             <Lottie animationData={lot} loop={true} className="lg:flex w-3/4" />
           </div>
           <div className="form w-full flex justify-center items-center">
@@ -52,11 +55,12 @@ export default function Login() {
               <div className="w-[100%] inputBox flex flex-col mt-5">
                 <input
                   className="border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:border-none border-solid border-2 rounded-xl 
-                py-3 pl-3 text-xs  bg-indigo-200  text-indigo-700 placeholder-indigo-700 md:text-base"
+                  py-3 pl-3 text-xs bg-indigo-200 text-indigo-700 placeholder-indigo-700 md:text-base"
                   type="tel"
                   name="phone"
                   id="phone"
                   placeholder="Phone Number"
+                  value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required="required"
                 />
@@ -64,11 +68,12 @@ export default function Login() {
               <div className="w-[100%] inputBox flex flex-col mt-3">
                 <input
                   className="w-[100%] border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:border-none border-solid border-2 rounded-xl p-1
-                py-3 pl-3 text-xs  bg-indigo-200  text-indigo-700 placeholder-indigo-700 md:text-base"
+                  py-3 pl-3 text-xs bg-indigo-200 text-indigo-700 placeholder-indigo-700 md:text-base"
                   type="password"
                   name="password"
                   id="password"
                   placeholder="Password"
+                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required="required"
                 />
@@ -85,4 +90,10 @@ export default function Login() {
       </div>
     </>
   );
-}
+};
+
+Login.propTypes = {
+  onLogin: PropTypes.func.isRequired,
+};
+
+export default Login;
