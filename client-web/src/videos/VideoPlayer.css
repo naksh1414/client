@@ -1,0 +1,15 @@
+.video-player {
+    width: 640px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .video-player video {
+    width: 100%;
+    height: 400px;
+  }
+  .video-player .controls {
+    margin-top: 20px;
+  }
+  .video-player .controls input[type="range"] {
+    width: 100%;
+  }

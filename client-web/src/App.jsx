@@ -1,16 +1,40 @@
-// import "./App.css";
+
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import Home from "./home/Home";
 import Login from "./login/Login";
+import Home from "./home/Home";
+import StudyMaterial from "./studyMaterial/StudyMaterial";
+import Courses from "./courses/Courses";
+import VideoPlayer from "./videos/Videos";
+import MockTest from "./mockTest/MockTest";
+import NavBar from "./components/NavBar";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
+
+  const handleLogin = (username) => {
+    setIsLoggedIn(true);
+    setUsername(username);
+  };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername("");
+  };
+
   return (
     <>
       <div>
         <Router>
+          <NavBar isLoggedIn={isLoggedIn} username={username} onLogout={handleLogout} />
           <Routes>
-            {/* <Route path="/" element={<Home />} /> */}
-            <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/Material" element={<StudyMaterial />} />
+            <Route path="/course" element={<Courses />} />
+            <Route path="/video" element={<VideoPlayer />} />
+            <Route path="/test" element={<MockTest />} />
           </Routes>
         </Router>
       </div>

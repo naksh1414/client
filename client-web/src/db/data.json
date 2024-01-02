@@ -1,0 +1,46 @@
+[
+  {
+    "title": "English",
+    "content": [
+      {
+        "type": "PDF Notes"
+      },
+      {
+        "type": "Recorded Videos"
+      }
+    ]
+  },
+  {
+    "title": "Maths",
+    "content": [
+      {
+        "type": "PDF Notes"
+      },
+      {
+        "type": "Recorded Videos"
+      }
+    ]
+  },
+  {
+    "title": "Science",
+    "content": [
+      {
+        "type": "PDF Notes"
+      },
+      {
+        "type": "Recorded Videos"
+      }
+    ]
+  },
+  {
+    "title": "Computer Science",
+    "content": [
+      {
+        "type": "Live videos"
+      },
+      {
+        "type": "PDF Notes"
+      }
+    ]
+  }
+]
