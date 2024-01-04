@@ -26,6 +26,7 @@ const Login = ({ onLogin }) => {
         setMessage("Login successful");
         onLogin(response.data.username);
         localStorage.setItem("userId", response.data.userId);
+        localStorage.setItem("username", response.data.username);
         history("/");
       } else {
         setMessage("Invalid phone number or password");
