@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const cors = require("cors");
+const md5 = require("blueimp-md5");
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -28,19 +29,30 @@ app.get("/", (req, res) => {
 });
 
 app.post("/login", (req, res) => {
-  const { phone_number, password } = req.body;
+  const { phone, password } = req.body;
+  const hashpass = md5(password);
 
-  const query = "SELECT * FROM users WHERE phone_number = ? AND password = ?";
-  pool.query(query, [phone_number, password], (err, result) => {
+  const query = "SELECT * FROM users WHERE phone_number = ?";
+  pool.query(query, [phone], (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
       res.status(500).json({ error: "Internal Server Error" });
       return;
     }
-
     if (result.length > 0) {
       const user = result[0];
-      res.json({ success: true, username: user.username });
+      if (user.password === hashpass) {
+        res.json({
+          success: true,
+          username: user.username,
+          userId: user.uid,
+        });
+      } else {
+        res.json({
+          success: false,
+          message: "Invalid phone number or password",
+        });
+      }
     } else {
       res.json({ success: false, message: "Invalid phone number or password" });
     }
@@ -61,14 +73,27 @@ app.get("/course", (req, res) => {
 
 app.get("/banners", (req, res) => {
   const query = "SELECT * FROM banners"; // Assuming your table is named 'banners'
-  
+
   pool.query(query, (err, result) => {
     if (err) {
       console.error("Error executing query:", err);
       res.status(500).json({ error: "Internal Server Error" });
       return;
     }
+    res.json(result);
+  });
+});
 
+app.get("/userorders", (req, res) => {
+  const { user } = req.body;
+  const query = "SELECT * FROM user_orders"; // Assuming your table is named 'banners'
+
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
     res.json(result);
   });
 });
