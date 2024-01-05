@@ -14,15 +14,12 @@ const NavBar = ({ isLoggedIn, username, onLogout }) => (
         <a href="/course">
           <li className="mx-6 mt-6 hover:font-semibold">Courses</li>
         </a>
-        <a href="">
+        <a href="/">
           <li className="mx-6 mt-6 hover:font-semibold">Contact</li>
         </a>
       </ul>
     </div>
     <div className="flex">
-      <button>
-        <CiSearch className=" h-8 w-8 my-6 md:mx-5 md:my-5" />
-      </button>
       {isLoggedIn ? (
         <div className="my-6 md:my-6 flex justify-center items-center">
           {username !== "" && (
@@ -37,9 +34,11 @@ const NavBar = ({ isLoggedIn, username, onLogout }) => (
         </div>
       ) : (
         <div className="my-6 md:my-6 flex justify-center items-center">
-          <button className="rounded-full h-[35px] w-[80px] md:h-[40px] md:w-[120px] border border-1 border-black hover:bg-slate-400 hover:text-white/100 hover:border-none transition duration-150">
-            <a href="/login">Login</a>
-          </button>
+          <a href="/login">
+            <button className="rounded-full h-[35px] w-[80px] md:h-[40px] md:w-[120px] border border-1 border-black hover:bg-slate-400 hover:text-white/100 hover:border-none transition duration-150">
+              <p>Login</p>
+            </button>
+          </a>
         </div>
       )}
       <HiMenuAlt3 className="flex md:hidden h-8 w-8 mx-5 my-6 md:my-5" />
