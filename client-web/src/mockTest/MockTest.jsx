@@ -50,6 +50,9 @@ const MockTest = () => {
   });
 
   useEffect(() => {
+    if (!localStorage.getItem("userId")) {
+      history("/login");
+    }
     fetchData();
     const timerInterval = setInterval(() => {
       setTime((prevTime) => {

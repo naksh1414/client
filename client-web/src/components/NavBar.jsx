@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import logo from "../assets/Navbar/app_icon.png";
-import { CiSearch } from "react-icons/ci";
 import { HiMenuAlt3 } from "react-icons/hi";
 
 const NavBar = ({ isLoggedIn, username, onLogout }) => (
@@ -13,6 +12,12 @@ const NavBar = ({ isLoggedIn, username, onLogout }) => (
         </a>
         <a href="/course">
           <li className="mx-6 mt-6 hover:font-semibold">Courses</li>
+        </a>
+        <a href="/ebooks">
+          <li className="mx-6 mt-6 hover:font-semibold">Ebooks</li>
+        </a>
+        <a href="/tests">
+          <li className="mx-6 mt-6 hover:font-semibold">Mock Tests</li>
         </a>
         <a href="/">
           <li className="mx-6 mt-6 hover:font-semibold">Contact</li>

@@ -10,6 +10,7 @@ const MockTest_name = () => {
   const history = useNavigate();
   const userId = localStorage.getItem("userId");
   const [mT, setMT] = useState([]);
+  const mocktest_title = localStorage.getItem("mockTest_title");
 
   //   const mockTest_name = localStorage.getItem("mockTest_name");
   const mockTest_id = localStorage.getItem("mockTest_id");
@@ -47,6 +48,9 @@ const MockTest_name = () => {
 
   useEffect(
     () => {
+      if (!localStorage.getItem("userId")) {
+        history("/login");
+      }
       fetchData();
     },
     [
@@ -65,7 +69,7 @@ const MockTest_name = () => {
             />
           </div>
           <h1 className="font-semibold text-4xl cursor-pointer text-center name  my-8">
-            Course{" "}
+            {mocktest_title}{" "}
           </h1>
         </div>
       </div>
