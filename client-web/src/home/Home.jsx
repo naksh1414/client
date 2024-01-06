@@ -3,10 +3,14 @@ import { FaArrowCircleRight } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Contact from "../contact/Contact";
+import { useNavigate } from "react-router-dom";
+
 const { Meta } = Card;
 
 function Home() {
+  const history = useNavigate();
   const [banners, setBanners] = useState([]);
+  const [type, setType] = useState(0);
   const [paidCourses, setPaidCourses] = useState([]);
   const [userOrders, setUserOrders] = useState([]);
   var userId = localStorage.getItem("userId");
@@ -41,6 +45,12 @@ function Home() {
 
       userOrdersResponse.data.forEach((order) => {
         if ("K6DE9W9GCRS0GZKDHXFS" === order.user_uid) {
+          setType(order.type);
+        }
+      });
+
+      userOrdersResponse.data.forEach((order) => {
+        if ("K6DE9W9GCRS0GZKDHXFS" === order.user_uid) {
           details.push(order.details);
         }
       });
@@ -60,13 +70,23 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect(
+    () => {
+      fetchData();
+      if (type == 1) {
+        history("/ebooks");
+      } else if (type == 2) {
+        history("/test");
+      }
+    },
+    [
+      /**type*/
+    ]
+  );
   return (
     <>
       {/* NavBar Component (if you want to include it) */}
-      {!userId ? (
+      {!userId || type == 3 || type == 4 ? (
         <div>
           <div className="flex flex-col h-[160px] mt-[5px] md:mt-[4px]">
             <Carousel className="flex justify-center" autoplay effect="fade">
@@ -116,7 +136,7 @@ function Home() {
                         </div>
                       }
                     />
-                    <a href="/Material">
+                    <a href={userId ? "/Material" : "/login"}>
                       <FaArrowCircleRight className="absolute h-8 w-8 right-[10px] bottom-2" />
                     </a>
                   </Card>

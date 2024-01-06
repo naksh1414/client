@@ -7,10 +7,15 @@ import Courses from "./courses/Courses";
 import VideoPlayer from "./videos/Videos";
 import MockTest from "./mockTest/MockTest";
 import NavBar from "./components/NavBar";
+import Ebooks from "./Ebooks/Ebook";
+import Tests from "./Tests/Test";
+import MockTest_name from "./mockTest/MockTest_name";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState("");
+  const mockTest_id = localStorage.getItem("mockTest_id");
+  const mockTest_id_test_id = localStorage.getItem("mockTest_id_test_id");
   useEffect(() => {
     var userId = localStorage.getItem("userId");
     if (userId) {
@@ -21,6 +26,7 @@ function App() {
       setUsername("");
     }
   }, []);
+
   const handleLogin = (username) => {
     // var userId = localStorage.getItem("userId");
     // if (userId) {
@@ -48,10 +54,16 @@ function App() {
           <Routes>
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/" element={<Home />} />
-            <Route path="/Material" element={<StudyMaterial />} />
+            <Route path="/material" element={<StudyMaterial />} />
             <Route path="/course" element={<Courses />} />
             <Route path="/video" element={<VideoPlayer />} />
-            <Route path="/test" element={<MockTest />} />
+            <Route
+              path={`/tests/${mockTest_id}/${mockTest_id_test_id}`}
+              element={<MockTest />}
+            />
+            <Route path="/material/ebooks" element={<Ebooks />} />
+            <Route path="/tests" element={<Tests />} />
+            <Route path={`/tests/${mockTest_id}`} element={<MockTest_name />} />
           </Routes>
         </Router>
       </div>
