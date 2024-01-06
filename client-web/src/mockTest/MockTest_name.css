@@ -1,0 +1,15 @@
+.mmm,
+.mmmm {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.back {
+  margin-right: auto;
+}
+
+.name {
+  margin-right: auto;
+}

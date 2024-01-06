@@ -83,6 +83,44 @@ app.get("/banners", (req, res) => {
     res.json(result);
   });
 });
+app.post("/mocktest_category", (req, res) => {
+  const query = "SELECT * FROM mock_test_category"; // Assuming your table is named 'banners'
+
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    res.json(result);
+  });
+});
+
+app.post("/tests/:mockTest_id", (req, res) => {
+  const { mockTest_id } = req.params;
+  const query = "SELECT * FROM mock_tests WHERE test_category_id=?"; // Assuming your table is named 'banners'
+  pool.query(query, [mockTest_id], (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    res.json(result);
+  });
+});
+
+app.post("/tests/:mockTest_id/:mockTest_id_test_id", (req, res) => {
+  const { mockTest_id, mockTest_id_test_id } = req.params;
+  const query = "SELECT * FROM test_questions WHERE mock_test_id=?"; // Assuming your table is named 'banners'
+  pool.query(query, [mockTest_id_test_id], (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    res.json(result);
+  });
+});
 
 app.get("/userorders", (req, res) => {
   const { user } = req.body;
@@ -95,6 +133,20 @@ app.get("/userorders", (req, res) => {
       return;
     }
     res.json(result);
+  });
+});
+
+app.get("/Material/ebooks", (req, res) => {
+  const { files } = req.body;
+  const query = "SELECT * FROM ebooks";
+  pool.query(query, (err, result) => {
+    if (err) {
+      console.error("Error executing query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+    res.json(result);
+    console.log(result);
   });
 });
 
