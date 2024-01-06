@@ -136,7 +136,7 @@ app.get("/userorders", (req, res) => {
   });
 });
 
-app.get("/Material/ebooks", (req, res) => {
+app.get("/ebooks", (req, res) => {
   const { files } = req.body;
   const query = "SELECT * FROM ebooks";
   pool.query(query, (err, result) => {
@@ -146,7 +146,6 @@ app.get("/Material/ebooks", (req, res) => {
       return;
     }
     res.json(result);
-    console.log(result);
   });
 });
 

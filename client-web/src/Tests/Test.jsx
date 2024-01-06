@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 const { Meta } = Card;
+import { IoMdArrowRoundBack } from "react-icons/io";
+import "../mockTest/MockTest_name.css";
 const Test = () => {
   const history = useNavigate();
   const userId = localStorage.getItem("userId");
@@ -31,13 +33,20 @@ const Test = () => {
     }
   };
 
-  const handleClick = (mocktest_id) => {
+  const handleClick = (mocktest_id, mocktest_title) => {
     localStorage.setItem("mockTest_id", mocktest_id);
+    localStorage.setItem("mockTest_title", mocktest_title);
     history(`/tests/${mocktest_id}`);
+  };
+  const handleBackClick = () => {
+    history(`/`);
   };
 
   useEffect(
     () => {
+      if (!userId) {
+        history("/login");
+      }
       fetchData();
     },
     [
@@ -47,9 +56,19 @@ const Test = () => {
 
   return (
     <div className="flex flex-wrap justify-center mt-4">
-      <h1 className="font-semibold text-4xl cursor-pointer text-center w-full my-8">
-        Course{" "}
-      </h1>
+      <div className="mmm w-full test-center ">
+        <div className="mmmm w-1/2">
+          <div className="back">
+            <IoMdArrowRoundBack
+              className="backicon cursor-pointer"
+              onClick={handleBackClick}
+            />
+          </div>
+          <h1 className="font-semibold text-4xl cursor-pointer text-center name  my-8">
+            Mock Tests{" "}
+          </h1>
+        </div>
+      </div>
 
       {mocktest_category.map((course, index) => (
         <div
@@ -85,7 +104,7 @@ const Test = () => {
             />
             <a
               href={userId ? "" : ""}
-              onClick={() => handleClick( course.id)}
+              onClick={() => handleClick(course.id, course.title)}
             >
               <FaArrowCircleRight className="absolute h-8 w-8 right-[10px] bottom-2" />
             </a>

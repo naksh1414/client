@@ -57,13 +57,13 @@ function App() {
             <Route path="/material" element={<StudyMaterial />} />
             <Route path="/course" element={<Courses />} />
             <Route path="/video" element={<VideoPlayer />} />
+            <Route path="/ebooks" element={<Ebooks />} />
+            <Route path="/tests" element={<Tests />} />
+            <Route path={`/tests/${mockTest_id}`} element={<MockTest_name />} />
             <Route
               path={`/tests/${mockTest_id}/${mockTest_id_test_id}`}
               element={<MockTest />}
             />
-            <Route path="/material/ebooks" element={<Ebooks />} />
-            <Route path="/tests" element={<Tests />} />
-            <Route path={`/tests/${mockTest_id}`} element={<MockTest_name />} />
           </Routes>
         </Router>
       </div>
